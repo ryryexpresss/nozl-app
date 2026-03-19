@@ -33,69 +33,13 @@ const C = {
   blue: "#1a1aff",
 };
 const BASE_BOYCOTT = [
-  {
-    id: 1,
-    name: "Z Energy",
-    logo: "Z",
-    bg: "#FF3B30",
-    bl: 95,
-    hike: "+28c",
-    reason:
-      "Raised prices 3× citing 'global tensions' — fuel already in NZ tanks",
-    votes: 14823,
-  },
-  {
-    id: 2,
-    name: "BP",
-    logo: "BP",
-    bg: "#00A651",
-    bl: 87,
-    hike: "+24c",
-    reason: "Profit margins up 340% while claiming supply disruption",
-    votes: 11205,
-  },
-  {
-    id: 3,
-    name: "Mobil",
-    logo: "M",
-    bg: "#E30613",
-    bl: 72,
-    hike: "+19c",
-    reason: "Pre-loaded NZ stock but charging Iran crisis rates",
-    votes: 8341,
-  },
-  {
-    id: 4,
-    name: "Gull",
-    logo: "G",
-    bg: "#f5d000",
-    bl: 18,
-    hike: "+4c",
-    reason: "Minor increase, relatively transparent pricing",
-    votes: 1204,
-  },
-  {
-    id: 5,
-    name: "Allied",
-    logo: "A",
-    bg: "#4fc3f7",
-    bl: 22,
-    hike: "+5c",
-    reason: "Small hike, locally owned — better accountability",
-    votes: 987,
-  },
-  {
-    id: 6,
-    name: "NPD",
-    logo: "N",
-    bg: "#b388ff",
-    bl: 15,
-    hike: "+3c",
-    reason: "Consistently competitive, independent NZ operator",
-    votes: 643,
-  },
+  { id: 1, name: "Z Energy", logo: "Z", bg: "#FF3B30", bl: 45, hike: "+28c", reason: "...", votes: 127 },
+  { id: 2, name: "BP", logo: "BP", bg: "#00A651", bl: 38, hike: "+24c", reason: "...", votes: 89 },
+  { id: 3, name: "Mobil", logo: "M", bg: "#E30613", bl: 32, hike: "+19c", reason: "...", votes: 64 },
+  { id: 4, name: "Gull", logo: "G", bg: "#39D353", bl: 8, hike: "+4c", reason: "...", votes: 12 },
+  { id: 5, name: "Allied", logo: "A", bg: "#58A6FF", bl: 10, hike: "+5c", reason: "...", votes: 15 },
+  { id: 6, name: "NPD", logo: "N", bg: "#BC8CFF", bl: 6, hike: "+3c", reason: "...", votes: 8 },
 ];
-
 const FACTS = [
   "NZ petrol takes 6–8 weeks to ship. Fuel here now was purchased before any conflict.",
   "Oil companies post record profits every quarter while blaming global events.",
@@ -976,6 +920,7 @@ export default function App() {
   const [aiPrices, setAiPrices] = useState({});
   const [aiLoading, setAiLoading] = useState(false);
   const [aiLoaded, setAiLoaded] = useState(false);
+  const [nickname, setNickname] = useState("");
 
   const calcNZ = (o) =>
     parseFloat(((o / 159) * 1.67 * 100 + 85) / 100).toFixed(3);
@@ -1118,15 +1063,15 @@ Adjust prices slightly from the examples to reflect realistic current market con
     setAddStation(newStation);
   };
 
-  const submitAddPrice = () => {
-    if (!addStation || (!add91 && !add95 && !addDsl)) return;
-    saveReport(addStation.id, {
-      price91: add91 ? parseFloat(add91) : null,
-      price95: add95 ? parseFloat(add95) : null,
-      diesel: addDsl ? parseFloat(addDsl) : null,
-      reporter: "community",
-      time: Date.now(),
-    });
+const submitAddPrice = () => {
+  if (!addStation || (!add91 && !add95 && !addDsl)) return;
+  saveReport(addStation.id, {
+    price91: add91 ? parseFloat(add91) : null,
+    price95: add95 ? parseFloat(add95) : null,
+    diesel: addDsl ? parseFloat(addDsl) : null,
+    reporter: nickname.trim() || "Anonymous Kiwi",
+    time: Date.now(),
+  });
     setAddSuccess(true);
     setTimeout(() => {
       setAddSuccess(false);
@@ -1842,11 +1787,11 @@ Adjust prices slightly from the examples to reflect realistic current market con
                               </div>
                             ) : null
                           )}
-                          {isCommunity && (
-                            <span style={{ fontSize: 10, color: C.green }}>
-                              {timeAgo(eff.time)}
-                            </span>
-                          )}
+                         {isCommunity && (
+  <span style={{ fontSize: 10, color: C.green }}>
+    {timeAgo(eff.time)} · {s.community?.reporter || "Anonymous Kiwi"}
+  </span>
+)}
                           {isAI && (
                             <span
                               style={{
@@ -1926,7 +1871,7 @@ Adjust prices slightly from the examples to reflect realistic current market con
                           }
                         }}
                       >
-                        {isCommunity ? "✏️ Update" : "⛽ Report"}
+                        {isCommunity ? "✏️ Update" : "⛽ Add Price"}
                       </button>
                     </div>
                   </div>
@@ -2495,8 +2440,19 @@ Adjust prices slightly from the examples to reflect realistic current market con
                     >
                       💡 Only enter prices you saw today. Leave blank if you
                       didn't see that fuel type.
-                    </div>
-                    <button
+                   
+                        </div>
+                   <div style={{ marginBottom: 14 }}>
+  <div style={{ fontSize: 10, color: C.text2, fontWeight: 700, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 }}>Your nickname (optional)</div>
+  <input
+    placeholder="e.g. Kiwi123"
+    value={nickname}
+    onChange={e => setNickname(e.target.value)}
+    style={{ background: C.card2, border: `1px solid ${C.border}`, borderRadius: 10, padding: "10px 14px", fontSize: 14, color: C.text, fontFamily: "inherit", width: "100%", outline: "none" }}
+  />
+  <div style={{ fontSize: 11, color: C.text2, marginTop: 5 }}>Shows as "Reported by Kiwi123" next to the price</div>
+</div>
+                        <button
                       style={{
                         ...S.accentBtn,
                         opacity: add91 || add95 || addDsl ? 1 : 0.4,
