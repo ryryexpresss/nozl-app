@@ -33,12 +33,12 @@ const C = {
   blue: "#1a1aff",
 };
 const BASE_BOYCOTT = [
-  { id: 1, name: "Z Energy", logo: "Z", bg: "#FF3B30", bl: 45, hike: "+28c", reason: "...", votes: 127 },
-  { id: 2, name: "BP", logo: "BP", bg: "#00A651", bl: 38, hike: "+24c", reason: "...", votes: 89 },
-  { id: 3, name: "Mobil", logo: "M", bg: "#E30613", bl: 32, hike: "+19c", reason: "...", votes: 64 },
-  { id: 4, name: "Gull", logo: "G", bg: "#39D353", bl: 8, hike: "+4c", reason: "...", votes: 12 },
-  { id: 5, name: "Allied", logo: "A", bg: "#58A6FF", bl: 10, hike: "+5c", reason: "...", votes: 15 },
-  { id: 6, name: "NPD", logo: "N", bg: "#BC8CFF", bl: 6, hike: "+3c", reason: "...", votes: 8 },
+  { id: 1, name: "Z Energy", logo: "Z", bg: "#FF3B30", bl: 0, hike: "+28c", reason: "...", votes: 0 },
+  { id: 2, name: "BP", logo: "BP", bg: "#00A651", bl: 0, hike: "+24c", reason: "...", votes: 0 },
+  { id: 3, name: "Mobil", logo: "M", bg: "#E30613", bl: 0, hike: "+19c", reason: "...", votes: 0 },
+  { id: 4, name: "Gull", logo: "G", bg: "#39D353", bl: 0, hike: "+4c", reason: "...", votes: 0 },
+  { id: 5, name: "Allied", logo: "A", bg: "#58A6FF", bl: 0, hike: "+5c", reason: "...", votes: 0 },
+  { id: 6, name: "NPD", logo: "N", bg: "#BC8CFF", bl: 0, hike: "+3c", reason: "...", votes: 0 },
 ];
 const FACTS = [
   "NZ petrol takes 6–8 weeks to ship. Fuel here now was purchased before any conflict.",
